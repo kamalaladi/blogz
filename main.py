@@ -15,20 +15,33 @@ class Blog(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     title = db.Column(db.String(120))
     body = db.Column(db.String(120))
-    def __init__(title,body):
-        self.tiltle = title
+    def __init__(self,title,body):
+        self.title = title
         self.body = body
 
-@app.route('/', methods=['POST', 'GET'])
-def index():
+@app.route('/blog', methods= ['POST','GET'])
+def main_blog():
+    blogs = Blog.query.all()
+    return render_template('mainblog.html', blogs = blogs)
+
+@app.route('/newpost', methods=['POST', 'GET'])
+def new_blog():
     if request.method == 'POST':
         blog_title =request.form['blogtitle']
         blog_body = request.form['blogbody']
-        new_blog = Blog(blog_titile,blog_body)
+        if blog_title == "":
+            error_title = "Please fill in the title"
+
+        if blog_body == "":
+            error_body = "Please fill in the body "
+        return render_template('newblog.html',title_error=error_title, body_error=error_body)
+
+
+        new_blog = Blog(blog_title,blog_body)
         db.session.add(new_blog)
         db.session.commit()
-
-    blogs = Blog.query.all()
-    return render_template('mainblog.html',title= 'Build a blog',blog=blogs)
+        return redirect('/blog')
+   
+    return render_template('newblog.html',title= 'Build a blog')
 if __name__ == '__main__':
     app.run()

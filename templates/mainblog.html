@@ -1,26 +1,16 @@
+{% extends "newblog.html" %}
+
 {% block content %}
-    <h1>Add A Blog Entry</h1>
-    <form method='post'>
-        <label>
-            Title for your new blog:
-            <input type="text" name='blogtitle' />
-        </label>
-        <label>
-            Your new blog:
-            <input type="text" name= 'blogbody'/>
-            
-        </label>
-
-        <input type="submit" value='Add Entry' />
-    </form>
-
+    
+    <h1 align = 'center'>Build a Blog</h1>
     {% if blogs|length == 0 %}
     <p>No blogs yet</p>
     {% else %}
 
-        <ul>
+        <ul style="list-style-type: none;">
             {% for blog in blogs %}
-            <li>{{blog}}
+            <li><h3>{{blog.title}}</h3>
+                {{blog.body}}
 
             </li>
             {% endfor %}

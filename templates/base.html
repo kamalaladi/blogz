@@ -2,8 +2,19 @@
 <html>
     <head>
         <title>{{title}}</title>
+        <style>
+            .error
+            {color: red;}
+            a{display:inline-block;
+            margin:0px;
+            padding:10px;}
+        </style>
     </head>
 <body>
+    <nav>
+        <a href= "/blog">Main Blog Page</a>
+        <a href="/newpost">Add a Blog Entry</a>
+    </nav>
 
     {% block content %}
     {% endblock %}
