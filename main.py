@@ -29,18 +29,18 @@ def new_blog():
     if request.method == 'POST':
         blog_title =request.form['blogtitle']
         blog_body = request.form['blogbody']
-        if blog_title == "":
+        error_title = ""
+        error_body = ""
+        if blog_title == "" or blog_body == "":
             error_title = "Please fill in the title"
-
-        if blog_body == "":
             error_body = "Please fill in the body "
-        return render_template('newblog.html',title_error=error_title, body_error=error_body)
+            return render_template('newblog.html',title_error=error_title, body_error=error_body)
+        else:
 
-
-        new_blog = Blog(blog_title,blog_body)
-        db.session.add(new_blog)
-        db.session.commit()
-        return redirect('/blog')
+            new_blog = Blog(blog_title,blog_body)
+            db.session.add(new_blog)
+            db.session.commit()
+            return redirect('/blog')
    
     return render_template('newblog.html',title= 'Build a blog')
 if __name__ == '__main__':
