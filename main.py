@@ -79,7 +79,7 @@ def signup():
         #find the user exists in the database with same username
         existing_user = User.query.filter_by(username=username).first()
             #if user does not exists create a new user
-        if not existing_user:
+        if not existing_user and not error:
             new_user = User(username, password)
             db.session.add(new_user)
             db.session.commit()
