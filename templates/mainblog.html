@@ -1,20 +1,22 @@
-{% extends "newblog.html" %}
+{{% extends "newblog.html" %}
 
 {% block content %}
     
-    <h1 align = 'center'>Build a Blog</h1>
-    {% if blogs|length == 0 %}
+<h1 align = 'center'>Blog posts</h1>
+{% if blogs|length == 0 %}
     <p>No blogs yet</p>
     {% else %}
 
         <ul style="list-style-type: none;">
             {% for blog in blogs %}
-            <li><h3><a href="/blog?id={{blog.id}}">{{blog.title}}</a></h3>
-              <!-- <li><h3><a href={{ url_for('blogid', id = blog.id)}}>{{blog.title}}</a></h3> -->   
+                <li><h3><a href="/blog?id={{blog.id}}">{{blog.title}}</a></h3>
+                <!-- <li><h3><a href={{ url_for('blogid', id = blog.id)}}>{{blog.title}}</a></h3> -->   
                 {{blog.body}}
+                <h5>written by <a href= '/blog?user={{blog.owner.username}}'>{{blog.owner.username}}</a></h5>
 
-            </li>
-            {% endfor %}
+                </li>
+         <hr/>
+         {% endfor %}
         </ul>
     {% endif %}
 {% endblock %}
